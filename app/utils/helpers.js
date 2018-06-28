@@ -7,9 +7,7 @@ const NOTIFICATION_KEY = 'mobileFlashCards:notifications';
  * Accreditation: code taken from Udacity React Native 'UdaciFitness' lessons
  */
 export function clearLocalNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
-    Notifications.cancelAllScheduledNotificationsAsync
-  );
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationsAsync);
 }
 
 /**
@@ -18,10 +16,10 @@ export function clearLocalNotification() {
 function createNotification() {
   return {
     title: 'Learn something today!',
-    body: "👋 don't forget to take a quiz today!",
+    body: '👋 don\'t forget to take a quiz today!',
     ios: {
-      sound: true
-    }
+      sound: true,
+    },
   };
 }
 
@@ -31,7 +29,7 @@ function createNotification() {
 export function setLocalNotification(chosenTime) {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
-    .then(data => {
+    .then((data) => {
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
           if (status === 'granted') {
@@ -39,7 +37,7 @@ export function setLocalNotification(chosenTime) {
 
             Notifications.scheduleLocalNotificationAsync(createNotification(), {
               time: chosenTime,
-              repeat: 'day'
+              repeat: 'day',
             });
 
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
